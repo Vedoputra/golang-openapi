@@ -1,0 +1,292 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "API sederhana CRUD Siswa (dummy/in-memory) + Swagger (Swaggo).",
+        "title": "Golang API CRUD - Siswa",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:3000",
+    "basePath": "/api/v1",
+    "paths": {
+        "/siswa": {
+            "get": {
+                "description": "List semua siswa (dummy in-memory)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Siswa"
+                ],
+                "summary": "Ambil semua data siswa",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Siswa"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create siswa",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Siswa"
+                ],
+                "summary": "Tambah siswa baru",
+                "parameters": [
+                    {
+                        "description": "Data siswa",
+                        "name": "siswa",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateSiswaRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Siswa"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/siswa/{id}": {
+            "get": {
+                "description": "Detail siswa by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Siswa"
+                ],
+                "summary": "Ambil siswa berdasarkan ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID Siswa",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Siswa"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update siswa by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Siswa"
+                ],
+                "summary": "Update siswa",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID Siswa",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Data update siswa",
+                        "name": "siswa",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateSiswaRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Siswa"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete siswa by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Siswa"
+                ],
+                "summary": "Hapus siswa",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID Siswa",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.CreateSiswaRequest": {
+            "type": "object",
+            "properties": {
+                "kelas": {
+                    "type": "string",
+                    "example": "XI RPL 1"
+                },
+                "nama": {
+                    "type": "string",
+                    "example": "Budi"
+                },
+                "umur": {
+                    "type": "integer",
+                    "example": 17
+                }
+            }
+        },
+        "models.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Data tidak ditemukan"
+                }
+            }
+        },
+        "models.Siswa": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "kelas": {
+                    "type": "string",
+                    "example": "XI RPL 1"
+                },
+                "nama": {
+                    "type": "string",
+                    "example": "Budi"
+                },
+                "umur": {
+                    "type": "integer",
+                    "example": 17
+                }
+            }
+        },
+        "models.UpdateSiswaRequest": {
+            "type": "object",
+            "properties": {
+                "kelas": {
+                    "type": "string",
+                    "example": "XI RPL 2"
+                },
+                "nama": {
+                    "type": "string",
+                    "example": "Budi Update"
+                },
+                "umur": {
+                    "type": "integer",
+                    "example": 18
+                }
+            }
+        }
+    }
+}

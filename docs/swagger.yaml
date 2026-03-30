@@ -1,0 +1,196 @@
+basePath: /api/v1
+definitions:
+  models.CreateSiswaRequest:
+    properties:
+      kelas:
+        example: XI RPL 1
+        type: string
+      nama:
+        example: Budi
+        type: string
+      umur:
+        example: 17
+        type: integer
+    type: object
+  models.ErrorResponse:
+    properties:
+      message:
+        example: Data tidak ditemukan
+        type: string
+    type: object
+  models.Siswa:
+    properties:
+      id:
+        example: 1
+        type: integer
+      kelas:
+        example: XI RPL 1
+        type: string
+      nama:
+        example: Budi
+        type: string
+      umur:
+        example: 17
+        type: integer
+    type: object
+  models.UpdateSiswaRequest:
+    properties:
+      kelas:
+        example: XI RPL 2
+        type: string
+      nama:
+        example: Budi Update
+        type: string
+      umur:
+        example: 18
+        type: integer
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: API sederhana CRUD Siswa (dummy/in-memory) + Swagger (Swaggo).
+  title: Golang API CRUD - Siswa
+  version: "1.0"
+paths:
+  /siswa:
+    get:
+      consumes:
+      - application/json
+      description: List semua siswa (dummy in-memory)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Siswa'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Ambil semua data siswa
+      tags:
+      - Siswa
+    post:
+      consumes:
+      - application/json
+      description: Create siswa
+      parameters:
+      - description: Data siswa
+        in: body
+        name: siswa
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateSiswaRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Siswa'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Tambah siswa baru
+      tags:
+      - Siswa
+  /siswa/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete siswa by ID
+      parameters:
+      - description: ID Siswa
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Hapus siswa
+      tags:
+      - Siswa
+    get:
+      consumes:
+      - application/json
+      description: Detail siswa by ID
+      parameters:
+      - description: ID Siswa
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Siswa'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Ambil siswa berdasarkan ID
+      tags:
+      - Siswa
+    put:
+      consumes:
+      - application/json
+      description: Update siswa by ID
+      parameters:
+      - description: ID Siswa
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data update siswa
+        in: body
+        name: siswa
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateSiswaRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Siswa'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Update siswa
+      tags:
+      - Siswa
+schemes:
+- http
+swagger: "2.0"
