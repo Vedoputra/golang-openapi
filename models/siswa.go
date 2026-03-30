@@ -27,5 +27,6 @@ type ErrorResponse struct {
 var DataSiswa = []Siswa{
 	{ID: 1, Nama: "Budi", Kelas: "XI RPL 1", Umur: 17},
 	{ID: 2, Nama: "Siti", Kelas: "XI RPL 2", Umur: 16},
+	{ID: 3, Nama: "Andi", Kelas: "XI RPL 3", Umur: 17},
 }
-var IDCounter = 3
+var IDCounter = 4
